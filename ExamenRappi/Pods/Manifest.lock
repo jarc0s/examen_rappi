@@ -1,0 +1,84 @@
+PODS:
+  - Alamofire (4.8.2)
+  - AlamofireImage (3.5.2):
+    - Alamofire (~> 4.8)
+  - IQKeyboardManagerSwift (6.3.0)
+  - lottie-ios (2.5.3)
+  - NVActivityIndicatorView (4.4.0):
+    - NVActivityIndicatorView/Presenter (= 4.4.0)
+  - NVActivityIndicatorView/Presenter (4.4.0)
+  - ObjectMapper (3.4.2)
+  - "ObjectMapper+Realm (0.6)":
+    - ObjectMapper
+    - RealmSwift
+  - Realm (3.15.0):
+    - Realm/Headers (= 3.15.0)
+  - Realm/Headers (3.15.0)
+  - RealmSwift (3.15.0):
+    - Realm (= 3.15.0)
+  - RxCocoa (4.5.0):
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxGesture (2.2.0):
+    - RxCocoa (~> 4.5)
+    - RxSwift (~> 4.5)
+  - RxSwift (4.5.0)
+  - SwiftMessages (5.0.1):
+    - SwiftMessages/App (= 5.0.1)
+  - SwiftMessages/App (5.0.1)
+  - SwiftyGif (4.2.0)
+  - YoutubePlayer-in-WKWebView (0.2.5)
+
+DEPENDENCIES:
+  - Alamofire (= 4.8.2)
+  - AlamofireImage (= 3.5.2)
+  - IQKeyboardManagerSwift (= 6.3.0)
+  - lottie-ios (= 2.5.3)
+  - NVActivityIndicatorView (= 4.4.0)
+  - ObjectMapper (= 3.4.2)
+  - "ObjectMapper+Realm (= 0.6)"
+  - RealmSwift (= 3.15.0)
+  - RxCocoa (= 4.5.0)
+  - RxGesture (= 2.2.0)
+  - RxSwift (= 4.5.0)
+  - SwiftMessages (= 5.0.1)
+  - SwiftyGif (= 4.2.0)
+  - YoutubePlayer-in-WKWebView (= 0.2.5)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AlamofireImage
+    - IQKeyboardManagerSwift
+    - lottie-ios
+    - NVActivityIndicatorView
+    - ObjectMapper
+    - "ObjectMapper+Realm"
+    - Realm
+    - RealmSwift
+    - RxCocoa
+    - RxGesture
+    - RxSwift
+    - SwiftMessages
+    - SwiftyGif
+    - YoutubePlayer-in-WKWebView
+
+SPEC CHECKSUMS:
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  AlamofireImage: 63cfe3baf1370be6c498149687cf6db3e3b00999
+  IQKeyboardManagerSwift: a8228c257614af98743b4cd8584637025f36358f
+  lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
+  NVActivityIndicatorView: ec7440a57af2450319d3a4181cca7da6fc127064
+  ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
+  "ObjectMapper+Realm": 4cf44ed3202a73f08594e21e13eb3f8aa9b5a664
+  Realm: 9b834e1be6062f544805252c812348872dc5d4ed
+  RealmSwift: 8a41886f8ab6efef9eb8df97de2f2bb911561a79
+  RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
+  RxGesture: c1b7bf17166b0ef9d642a9510f8bac5785f18990
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+  SwiftMessages: 32ce3cfc8388b41aae56ff4853cc752a20101147
+  SwiftyGif: a149bf84df23370592f3f075561ae02c8632a314
+  YoutubePlayer-in-WKWebView: 4dad12b3ece938a6456fa4374df78942f88b485a
+
+PODFILE CHECKSUM: 762e09e7b006c0c66f21b6eb404516d017011ab0
+
+COCOAPODS: 1.5.3
