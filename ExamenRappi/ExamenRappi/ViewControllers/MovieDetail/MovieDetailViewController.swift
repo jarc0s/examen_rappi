@@ -45,6 +45,7 @@ class MovieDetailViewController: UIViewController {
     
     
     private func viewConfiguration() {
+        self.title = movieModel.title
         self.imageMovie.getImageWithUrl(url: "\(Constants.UrlServices.ImagePath)\(movieModel.backdrop_path ?? "")", cache: true)
         self.labelTitle.text = movieModel.original_title
         self.labelNumberVotes.text = "\(movieModel.vote_count ?? 0) votes"

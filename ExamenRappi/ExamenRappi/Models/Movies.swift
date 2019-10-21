@@ -9,12 +9,12 @@
 import Foundation
 import ObjectMapper
 
-public class MoviesListModel : Mappable, CustomStringConvertible {
+public class MoviesListModel: Mappable, CustomStringConvertible {
     
-    var page : Int?
-    var total_results : Int?
-    var total_pages : Int?
-    var results : [ResultMovieModel]?
+    var page: Int?
+    var total_results: Int?
+    var total_pages: Int?
+    var results: [ResultMovieModel]?
     
     init() {}
     
@@ -37,7 +37,7 @@ public class MoviesListModel : Mappable, CustomStringConvertible {
 public struct ErrorModel {
     var errorcode: String?
     
-    public init (errorcode : String?) {
+    public init (errorcode: String?) {
         self.errorcode = errorcode
     }
 }

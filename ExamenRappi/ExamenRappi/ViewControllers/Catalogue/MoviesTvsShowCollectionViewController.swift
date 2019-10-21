@@ -61,12 +61,11 @@ class MoviesTvsShowCollectionViewController: UICollectionViewController {
     
     private func getMoviesByType() {
         ActivityIndicator.showLoader()
-        ServicesManager.getMoviesByType(settingViewModel.selectedCategory) { result in
+        ServicesManager.getMoviesByType(settingViewModel.selectedCategory, page: settingViewModel.currentPage) { result in
             ActivityIndicator.hiddenLoader(nil, closure: { (_) in })
             switch result {
             case .success:
                 print("success")
-                //self.performSegue(withIdentifier: "segueListMovies", sender: typeMovie)
                 self.getContentData()
             case .failure(let message):
                 print("failure: \(message)")
@@ -90,7 +89,14 @@ class MoviesTvsShowCollectionViewController: UICollectionViewController {
     private func getContentData() {
         self.contentData = DataSourceManager.getMoviesByType(category: settingViewModel.selectedCategory)
         DispatchQueue.main.async {
-            self.collectionView.reloadData()
+//            //self.collectionView.reloadData()
+//            self.collectionView.reloadSections()
+//            self.collectionView.collectionViewLayout.invalidateLayout()
+            //self.collectionView.performBatchUpdates({
+                let indexSet = IndexSet(integer: 0)
+                self.collectionView.reloadSections(indexSet)
+            //}, completion: nil)
+            self.collectionView.collectionViewLayout.invalidateLayout()
         }
     }
     

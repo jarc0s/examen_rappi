@@ -56,9 +56,9 @@ final class ServicesManager: NSObject {
     
     //Mark: - Movies
     
-    static func getMoviesByType( _ category : Category, completion: @escaping (_ result: ServicesManagerResult) -> Void) {
+    static func getMoviesByType( _ category : Category, page: Int, completion: @escaping (_ result: ServicesManagerResult) -> Void) {
         
-        self.manager.request(ApiRouterMovies.getMoviesByType(category: category, apiKey: Constants.Headers.ApiKey))
+        self.manager.request(ApiRouterMovies.getMoviesByType(category: category, apiKey: Constants.Headers.ApiKey, page: page))
             .validate(statusCode: 1...501)
             .responseString { response in
                 switch response.result {
@@ -68,7 +68,9 @@ final class ServicesManager: NSObject {
                         print(responseStr)
                         if let modelResponse = Mapper<MoviesListModel>().map(JSONString: responseStr) {
                             print("modelResponse :\(String(describing: modelResponse.results?.first?.original_title))")
-                            let result = DataSourceManager.saveCacheModel(category.keyRealmValue, value: modelResponse.toJSONString() ?? "")
+                            
+                            //let result = DataSourceManager.saveCacheModel(category.keyRealmValue, value: modelResponse.toJSONString() ?? "")
+                            let result = DataSourceManager.addMoviesToCategory(category.keyRealmValue, value: modelResponse.toJSONString() ?? "")
                             switch result {
                             case .success:
                                 completion(.success)

@@ -34,7 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userDefaults = UserDefaults.standard
         if userDefaults.value(forKey: "category") == nil {
             userDefaults.set(Category.topRated.rawValue, forKey: "category")
+            userDefaults.set(1, forKey: "currentPage")
         }
+        
         
     }
     

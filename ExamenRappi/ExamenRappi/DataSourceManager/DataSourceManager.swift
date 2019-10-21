@@ -71,24 +71,46 @@ final class DataSourceManager {
         }
     }
     
+    static func addMoviesToCategory(_ urlString: String, value: String) -> ManagerResult {
+        var currentData: [ResultMovieModel] = [ResultMovieModel]()
+        let settingsVM = SettingsViewModel()
+        currentData.append(contentsOf: getMoviesByType(category: settingsVM.selectedCategory))
+        
+        guard let modelResponse = Mapper<MoviesListModel>().map(JSONString: value) else {
+            return .failure(message: "Error al guardar Dato en DB")
+        }
+        if let results = modelResponse.results {
+            currentData.append(contentsOf: results)
+        }
+        modelResponse.results = currentData
+        
+        //Update current Page
+        if let lastPage = modelResponse.page {
+            var settingsVM = SettingsViewModel()
+            settingsVM.currentPage = lastPage + 1
+        }
+        
+        return saveCacheModel(urlString, value: modelResponse.toJSONString() ?? "")
+    }
+    
     static func getMoviesByType(category: Category) -> [ResultMovieModel] {
         guard let userDataJson = DataSourceManager.requestDataFromCache(realName: category.keyRealmValue, cacheManagerName: Constants.KeysRealmObject.CacheManagerRealm) else {
             return [ResultMovieModel]()
         }
         
-        guard let model : MoviesListModel  = Mapper<MoviesListModel>().map(JSONString: userDataJson) else {
+        guard let model: MoviesListModel  = Mapper<MoviesListModel>().map(JSONString: userDataJson) else {
             return [ResultMovieModel]()
         }
         
         return model.results ?? [ResultMovieModel]()
     }
     
-    static func getMovieVideosById(id : String, category: Category) -> VideosModel{
+    static func getMovieVideosById(id: String, category: Category) -> VideosModel{
         guard let userDataJson = DataSourceManager.requestDataFromCache(realName: category.keyRealmValue + "_\(id)", cacheManagerName: Constants.KeysRealmObject.CacheManagerRealm) else {
             return VideosModel()
         }
         
-        guard let model : VideosModel = Mapper<VideosModel>().map(JSONString: userDataJson) else {
+        guard let model: VideosModel = Mapper<VideosModel>().map(JSONString: userDataJson) else {
             return VideosModel()
         }
         
@@ -100,26 +122,26 @@ final class DataSourceManager {
             return [ResultTvModel]()
         }
         
-        guard let model : TvsListModel  = Mapper<TvsListModel>().map(JSONString: userDataJson) else {
+        guard let model: TvsListModel  = Mapper<TvsListModel>().map(JSONString: userDataJson) else {
             return [ResultTvModel]()
         }
         
         return model.results ?? [ResultTvModel]()
     }
     
-    static func getTvVideosById(id : String, typeTv: TypeTvsEnum) -> VideosModel{
+    static func getTvVideosById(id: String, typeTv: TypeTvsEnum) -> VideosModel{
         guard let userDataJson = DataSourceManager.requestDataFromCache(realName: typeTv.keyRealmValue + "_\(id)", cacheManagerName: Constants.KeysRealmObject.CacheManagerRealm) else {
             return VideosModel()
         }
         
-        guard let model : VideosModel = Mapper<VideosModel>().map(JSONString: userDataJson) else {
+        guard let model: VideosModel = Mapper<VideosModel>().map(JSONString: userDataJson) else {
             return VideosModel()
         }
         
         return model
     }
     
-    static func getVideoTrailerIdByMovieId(id : String, category: Category) -> String{
+    static func getVideoTrailerIdByMovieId(id: String, category: Category) -> String{
         
         let model = self.getMovieVideosById(id: id, category: category)
         
@@ -132,7 +154,7 @@ final class DataSourceManager {
     }
     
     
-    static func getVideoTrailerIdByTvId(id : String, typeTv: TypeTvsEnum) -> String{
+    static func getVideoTrailerIdByTvId(id: String, typeTv: TypeTvsEnum) -> String{
         
         let model = self.getTvVideosById(id: id, typeTv: typeTv)
         

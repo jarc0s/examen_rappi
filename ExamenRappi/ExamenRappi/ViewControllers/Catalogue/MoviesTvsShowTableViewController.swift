@@ -20,7 +20,6 @@ class MoviesTvsShowTableViewController: UITableViewController {
           return [ResultMovieModel]()
      }()
      
-     
      //MARK: UIViewController
      override func viewDidLoad() {
           super.viewDidLoad()
@@ -45,12 +44,11 @@ class MoviesTvsShowTableViewController: UITableViewController {
      
      private func getMoviesByType() {
           ActivityIndicator.showLoader()
-          ServicesManager.getMoviesByType(settingViewModel.selectedCategory) { result in
+          ServicesManager.getMoviesByType(settingViewModel.selectedCategory, page: settingViewModel.currentPage) { result in
                ActivityIndicator.hiddenLoader(nil, closure: { (_) in })
                switch result {
                case .success:
                     print("success")
-                    //self.performSegue(withIdentifier: "segueListMovies", sender: typeMovie)
                     self.getContentData()
                case .failure(let message):
                     print("failure: \(message)")
@@ -119,6 +117,12 @@ extension MoviesTvsShowTableViewController {
      override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
           let model = self.contentData[indexPath.row]
           performSegue(withIdentifier: "segueMovieDetail", sender: model)
+     }
+     
+     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+          if indexPath.row == contentData.count - 1 {
+               
+          }
      }
      
 }

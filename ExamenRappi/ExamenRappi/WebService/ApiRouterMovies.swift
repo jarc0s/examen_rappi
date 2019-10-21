@@ -17,8 +17,8 @@ enum ApiRouterMovies: URLRequestConvertible {
     
     
     // Cases ApiRouterGrades
-    case getMoviesByType(category : Category, apiKey : String)
-    case getMovieById(category : Category, id : String, apiKey : String)
+    case getMoviesByType(category: Category, apiKey: String, page: Int)
+    case getMovieById(category: Category, id: String, apiKey: String)
     
     public func asURLRequest() throws -> URLRequest {
         let contentType = ApiRouterMovies.contentType
@@ -26,9 +26,9 @@ enum ApiRouterMovies: URLRequestConvertible {
         
         let result: (path: String, body: String?) = {
             switch self {
-            case .getMoviesByType(let category, let apiKey):
+            case .getMoviesByType(let category, let apiKey, let page):
                 typeMethod = .GET
-                return ("movie/\(category.apiMethods)", "?api_key=\(apiKey)")
+                return ("movie/\(category.apiMethods)", "?api_key=\(apiKey)&page=\(page)")
             case .getMovieById(let category, let id, let apiKey):
                 typeMethod = .GET
                 return ("movie/\(id)/\(category.apiMethods)","?api_key=\(apiKey)")

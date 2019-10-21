@@ -35,6 +35,22 @@ struct SettingsViewModel {
             userDefaults.set(newValue.rawValue, forKey: "category")
         }
     }
+    
+    var currentPage: Int {
+        get {
+            let userDefaults = UserDefaults.standard
+            
+            if let value = userDefaults.value(forKey: "currentPage") as? Int {
+                return value
+            }
+            return 1
+        }
+        
+        set {
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(newValue, forKey: "currentPage")
+        }
+    }
 }
 
 extension Category {
