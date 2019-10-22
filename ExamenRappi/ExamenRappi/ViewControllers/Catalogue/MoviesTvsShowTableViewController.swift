@@ -20,6 +20,14 @@ class MoviesTvsShowTableViewController: UITableViewController {
           return [ResultMovieModel]()
      }()
      
+     lazy var fetchingMore: Bool = {
+          return false
+     }()
+     
+     lazy var firtsTime: Bool = {
+          return true
+     }()
+     
      //MARK: UIViewController
      override func viewDidLoad() {
           super.viewDidLoad()
@@ -28,13 +36,15 @@ class MoviesTvsShowTableViewController: UITableViewController {
           tableView.register(UINib.init(nibName: "MoviesTvsTableViewCell", bundle: nil), forCellReuseIdentifier: "previewCell")
           tableView.estimatedRowHeight = 500.0
           tableView.rowHeight = UITableView.automaticDimension
-          
+          registerForPreviewing(with: self, sourceView: self.tableView)
      }
      
      override func viewDidAppear(_ animated: Bool) {
           super.viewDidAppear(animated)
           //Reload table view controller
-          getMoviesByType()
+          if firtsTime {
+               getMoviesByType()
+          }
      }
      
      override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +82,8 @@ class MoviesTvsShowTableViewController: UITableViewController {
      private func getContentData() {
           self.contentData = DataSourceManager.getMoviesByType(category: settingViewModel.selectedCategory)
           DispatchQueue.main.async {
+               self.fetchingMore = false
+               self.firtsTime = false
                self.tableView.reloadData()
           }
      }
@@ -87,6 +99,35 @@ class MoviesTvsShowTableViewController: UITableViewController {
                movieDetailVC.movieModel = model
                
           }
+     }
+     
+     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+          let offsetY = scrollView.contentOffset.y
+          let contentHeight = scrollView.contentSize.height
+          if offsetY > contentHeight - scrollView.frame.height {
+               if !fetchingMore {
+                    beginingBatchFetch()
+               }
+          }
+     }
+     
+     func beginingBatchFetch() {
+          fetchingMore = true
+          self.getMoviesByType()
+     }
+     
+     func createDetailViewControllerIndexPath(indexPath: IndexPath) -> UIViewController{
+          
+          
+          let storyboard = UIStoryboard(name: "Main", bundle: nil)
+          
+          guard let vc = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as? MovieDetailViewController else {
+               fatalError("Couldn't load detail view controller")
+          }
+          
+          vc.movieModel = contentData[indexPath.row]
+          
+          return vc
      }
 }
 
@@ -120,9 +161,25 @@ extension MoviesTvsShowTableViewController {
      }
      
      override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-          if indexPath.row == contentData.count - 1 {
-               
+          let animation = AnimationFactory.makeSlideIn(duration: 0.3, delayFactor: 0.03)
+          let animator = Animator(animation: animation)
+          animator.animate(cell: cell, at: indexPath, in: tableView)
+     }
+}
+
+extension MoviesTvsShowTableViewController : UIViewControllerPreviewingDelegate {
+     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+          guard let indexPath = tableView.indexPathForRow(at: location) else {
+               return nil
           }
+          
+          let detailViewController = createDetailViewControllerIndexPath(indexPath: indexPath)
+          
+          return detailViewController
+     }
+     
+     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+          navigationController?.pushViewController(viewControllerToCommit, animated: true)
      }
      
 }

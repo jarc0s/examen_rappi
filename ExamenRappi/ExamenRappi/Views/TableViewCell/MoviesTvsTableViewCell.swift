@@ -26,4 +26,11 @@ class MoviesTvsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        imagePosterView.af_cancelImageRequest()
+        imagePosterView.image = nil
+    }
+    
 }

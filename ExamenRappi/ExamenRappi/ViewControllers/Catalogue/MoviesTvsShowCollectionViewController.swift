@@ -88,16 +88,16 @@ class MoviesTvsShowCollectionViewController: UICollectionViewController {
     
     private func getContentData() {
         self.contentData = DataSourceManager.getMoviesByType(category: settingViewModel.selectedCategory)
-        DispatchQueue.main.async {
-//            //self.collectionView.reloadData()
-//            self.collectionView.reloadSections()
+//        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+////            self.collectionView.reloadSections()
+////            self.collectionView.collectionViewLayout.invalidateLayout()
+//            //self.collectionView.performBatchUpdates({
+//                let indexSet = IndexSet(integer: 0)
+//                self.collectionView.reloadSections(indexSet)
+//            //}, completion: nil)
 //            self.collectionView.collectionViewLayout.invalidateLayout()
-            //self.collectionView.performBatchUpdates({
-                let indexSet = IndexSet(integer: 0)
-                self.collectionView.reloadSections(indexSet)
-            //}, completion: nil)
-            self.collectionView.collectionViewLayout.invalidateLayout()
-        }
+//        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

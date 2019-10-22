@@ -141,7 +141,7 @@
         <!--Movie Detail View Controller-->
         <scene sceneID="myX-ZF-Uc6">
             <objects>
-                <viewController id="2de-Go-xgT" customClass="MovieDetailViewController" customModule="ExamenRappi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MovieDetailViewController" id="2de-Go-xgT" customClass="MovieDetailViewController" customModule="ExamenRappi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="G8U-hP-nrY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -365,11 +365,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back_icon" width="14.399999618530273" height="14.399999618530273"/>
-        <image name="collection_30x30" width="60" height="61"/>
-        <image name="settings_30x30" width="60" height="60"/>
-        <image name="table_30x30" width="60" height="60"/>
-        <image name="tv_icon" width="60" height="60"/>
+        <image name="back_icon" width="30" height="30"/>
+        <image name="collection_30x30" width="30" height="30"/>
+        <image name="settings_30x30" width="30" height="30"/>
+        <image name="table_30x30" width="30" height="30"/>
+        <image name="tv_icon" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6Ps-eG-UFI"/>

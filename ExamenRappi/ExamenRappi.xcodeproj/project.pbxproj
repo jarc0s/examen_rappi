@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DD30088235ED00300EA7DE1 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DD30087235ED00300EA7DE1 /* Animation.swift */; };
 		20D631F80C4A816E2DD20903 /* Pods_ExamenRappiUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBD7098420A8A93C7FDBF6B7 /* Pods_ExamenRappiUITests.framework */; };
 		5CCF2A39F9B7386B6E7547B2 /* Pods_ExamenRappi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D21EC75CBACCCE374F4E52A /* Pods_ExamenRappi.framework */; };
 		7661D07EAA62AD52BF13D1A2 /* Pods_ExamenRappiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A87BAB824F86AB9D69815EA /* Pods_ExamenRappiTests.framework */; };
@@ -66,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DD30087235ED00300EA7DE1 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		18C3D5B2CF5C6534B48E2AF3 /* Pods-ExamenRappiTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExamenRappiTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExamenRappiTests/Pods-ExamenRappiTests.debug.xcconfig"; sourceTree = "<group>"; };
 		38843903F9B7FE086DB56BA6 /* Pods-ExamenRappiUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExamenRappiUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ExamenRappiUITests/Pods-ExamenRappiUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6D21EC75CBACCCE374F4E52A /* Pods_ExamenRappi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ExamenRappi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -275,6 +277,7 @@
 				88085896235BAA7F0077008A /* RappiExtension.swift */,
 				880858A1235BBB670077008A /* UICustomCollectionViewLayout.swift */,
 				880858B4235BF8CA0077008A /* LoaderAction.swift */,
+				0DD30087235ED00300EA7DE1 /* Animation.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -743,6 +746,7 @@
 				88085877235BA4610077008A /* Constants.swift in Sources */,
 				88085882235BA7170077008A /* Errors.swift in Sources */,
 				8808589A235BADF10077008A /* MoviesTvsShowCollectionViewController.swift in Sources */,
+				0DD30088235ED00300EA7DE1 /* Animation.swift in Sources */,
 				88085891235BA84B0077008A /* RealmCacheEntryModel.swift in Sources */,
 				88085879235BA6830077008A /* ApiRouterMovies.swift in Sources */,
 				880858B3235BDC010077008A /* SettingsViewModel.swift in Sources */,
@@ -856,7 +860,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -911,7 +915,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -929,6 +933,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A4ZE6AACZL;
 				INFOPLIST_FILE = ExamenRappi/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -948,6 +953,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A4ZE6AACZL;
 				INFOPLIST_FILE = ExamenRappi/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
