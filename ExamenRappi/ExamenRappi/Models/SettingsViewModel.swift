@@ -51,6 +51,32 @@ struct SettingsViewModel {
             userDefaults.set(newValue, forKey: "currentPage")
         }
     }
+    
+    var currentLimitPage: Int {
+        get {
+            let userDefaults = UserDefaults.standard
+            
+            if let value = userDefaults.value(forKey: "currentLimitPage") as? Int {
+                return value
+            }
+            return 1
+        }
+        
+        set {
+            let userDeafults = UserDefaults.standard
+            userDeafults.set(newValue, forKey: "currentLimitPage")
+        }
+    }
+    
+    var isInTheRange: Bool {
+        get {
+            if currentLimitPage <= currentLimitPage {
+                return true
+            }
+            return false
+        }
+    }
+    
 }
 
 extension Category {

@@ -73,7 +73,7 @@ final class DataSourceManager {
     
     static func addMoviesToCategory(_ urlString: String, value: String) -> ManagerResult {
         var currentData: [ResultMovieModel] = [ResultMovieModel]()
-        let settingsVM = SettingsViewModel()
+        var settingsVM = SettingsViewModel()
         currentData.append(contentsOf: getMoviesByType(category: settingsVM.selectedCategory))
         
         guard let modelResponse = Mapper<MoviesListModel>().map(JSONString: value) else {
@@ -86,8 +86,8 @@ final class DataSourceManager {
         
         //Update current Page
         if let lastPage = modelResponse.page {
-            var settingsVM = SettingsViewModel()
             settingsVM.currentPage = lastPage + 1
+            settingsVM.currentLimitPage = modelResponse.total_pages ?? 1
         }
         
         return saveCacheModel(urlString, value: modelResponse.toJSONString() ?? "")

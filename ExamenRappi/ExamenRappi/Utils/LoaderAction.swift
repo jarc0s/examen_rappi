@@ -35,3 +35,22 @@ struct ActivityIndicator {
         }
     }
 }
+
+struct ShowMessage {
+    static func showToastMessage(message : String, type : Theme, slideFrom : SwiftMessages.PresentationStyle ) {
+        SwiftMessages.show {
+            let mssgView = MessageView.viewFromNib(layout: .cardView)
+            // ... configure the view
+            mssgView.configureTheme(type)
+            mssgView.configureDropShadow()
+            mssgView.configureContent(title: "", body: message)
+            mssgView.button?.isHidden = true
+            var config = SwiftMessages.Config()
+            config.interactiveHide = true
+            config.duration = .seconds(seconds: 3.5)
+            config.presentationStyle = slideFrom
+            
+            return mssgView
+        }
+    }
+}

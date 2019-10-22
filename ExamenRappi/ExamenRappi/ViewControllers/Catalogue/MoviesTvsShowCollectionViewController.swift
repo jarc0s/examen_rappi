@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class MoviesTvsShowCollectionViewController: UICollectionViewController {
     
@@ -18,6 +19,8 @@ class MoviesTvsShowCollectionViewController: UICollectionViewController {
     lazy var contentData: [ResultMovieModel] = {
         return [ResultMovieModel]()
     }()
+    
+    var disposeBag = DisposeBag()
     
     public var customCollectionViewLayout: UICustomCollectionViewLayout? {
         get {
@@ -38,12 +41,14 @@ class MoviesTvsShowCollectionViewController: UICollectionViewController {
         collectionView.register(UINib.init(nibName: "MoviesTvsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "previewCell")
         self.customCollectionViewLayout?.delegate = self
         self.customCollectionViewLayout?.numberOfColumns = 2
+        
+        //Reload collection data
+        getMoviesByType()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //Reload collection data
-        getMoviesByType()
+        self.title = settingViewModel.selectedCategory.displayName
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -56,6 +61,14 @@ class MoviesTvsShowCollectionViewController: UICollectionViewController {
             
             movieDetailVC.movieModel = model
             
+        }else if segue.identifier == "segueSettings" {
+            guard let nav = segue.destination as? UINavigationController,
+                let settingsVC = nav.viewControllers.first as?  SettingsViewController else {
+                    return
+            }
+            settingsVC.selectedCategory.subscribe(onNext: { [weak self] category in
+                self?.getMoviesByType()
+            }).disposed(by: self.disposeBag)
         }
     }
     

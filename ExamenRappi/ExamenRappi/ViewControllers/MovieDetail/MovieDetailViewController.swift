@@ -28,8 +28,16 @@ class MovieDetailViewController: UIViewController {
         return ResultMovieModel()
     }()
     
+    lazy var isModalPresenter: Bool = {
+       return false
+    }()
+    
     @IBAction func closeView(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
+        if isModalPresenter {
+            self.navigationController?.popViewController(animated: true)
+        }else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     //MARK: UIViewController
@@ -51,8 +59,6 @@ class MovieDetailViewController: UIViewController {
         self.labelNumberVotes.text = "\(movieModel.vote_count ?? 0) votes"
         self.labelVoteAverage.text = "Vote average: \(movieModel.vote_average ?? 0)"
         self.labelOverview.text = movieModel.overview ?? ""
-        
-        //self.imageBackGround.getImageWithUrl(url: "\(Constants.UrlServices.ImagePath)\(movieModel.poster_path ?? "")", cache: true, applyMaskColor: ColorPallete.rgb_595d9f.asColor(withAlpha: 1.0))
     }
     
     private func getMovieDetail(){

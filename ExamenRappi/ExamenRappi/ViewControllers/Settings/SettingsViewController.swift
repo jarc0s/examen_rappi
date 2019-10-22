@@ -8,13 +8,19 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class SettingsViewController: UITableViewController {
     
     private var settingsViewModel = SettingsViewModel()
     
+    private let selectedCategorySubject = PublishSubject<Category>()
+    var selectedCategory: Observable<Category> {
+        return selectedCategorySubject.asObservable()
+    }
     
     @IBAction func closeView(_ sender: UIBarButtonItem) {
+        self.selectedCategorySubject.onNext(settingsViewModel.selectedCategory)
         self.dismiss(animated: true, completion: nil)
     }
     

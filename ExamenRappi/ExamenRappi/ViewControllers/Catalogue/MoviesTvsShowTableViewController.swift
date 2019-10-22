@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import RxSwift
 
 class MoviesTvsShowTableViewController: UITableViewController {
      
@@ -24,27 +24,22 @@ class MoviesTvsShowTableViewController: UITableViewController {
           return false
      }()
      
-     lazy var firtsTime: Bool = {
-          return true
-     }()
+     var disposeBag = DisposeBag()
      
      //MARK: UIViewController
      override func viewDidLoad() {
           super.viewDidLoad()
-          self.title = "Movies"
           self.navigationController?.navigationBar.prefersLargeTitles = true
           tableView.register(UINib.init(nibName: "MoviesTvsTableViewCell", bundle: nil), forCellReuseIdentifier: "previewCell")
           tableView.estimatedRowHeight = 500.0
           tableView.rowHeight = UITableView.automaticDimension
           registerForPreviewing(with: self, sourceView: self.tableView)
+          getMoviesByType()
      }
      
      override func viewDidAppear(_ animated: Bool) {
           super.viewDidAppear(animated)
-          //Reload table view controller
-          if firtsTime {
-               getMoviesByType()
-          }
+          self.title = settingViewModel.selectedCategory.rawValue.capitalized
      }
      
      override func viewWillAppear(_ animated: Bool) {
@@ -53,19 +48,22 @@ class MoviesTvsShowTableViewController: UITableViewController {
      }
      
      private func getMoviesByType() {
-          ActivityIndicator.showLoader()
-          ServicesManager.getMoviesByType(settingViewModel.selectedCategory, page: settingViewModel.currentPage) { result in
-               ActivityIndicator.hiddenLoader(nil, closure: { (_) in })
-               switch result {
-               case .success:
-                    print("success")
-                    self.getContentData()
-               case .failure(let message):
-                    print("failure: \(message)")
-               //self.validateMovieLocalData(typeMovie: typeMovie)
-               case .failureData(let errorModel):
-                    print("failureData: \(String(describing: errorModel.errorcode))")
-                    //self.showToastMessage(message: Constants.GlobalMessage.Error.errorMessage, type: .warning, slideFrom: .top)
+          
+          if settingViewModel.isInTheRange {
+               ActivityIndicator.showLoader()
+               ServicesManager.getMoviesByType(settingViewModel.selectedCategory, page: settingViewModel.currentPage) { result in
+                    ActivityIndicator.hiddenLoader(nil, closure: { (_) in })
+                    switch result {
+                    case .success:
+                         print("success")
+                         self.getContentData()
+                    case .failure(let message):
+                         print("failure: \(message)")
+                         self.validateMovieLocalData(category: self.settingViewModel.selectedCategory)
+                    case .failureData(let errorModel):
+                         print("failureData: \(String(describing: errorModel.errorcode))")
+                         ShowMessage.showToastMessage(message: Constants.GlobalMessage.Error.errorMessage, type: .warning, slideFrom: .top)
+                    }
                }
           }
      }
@@ -73,9 +71,12 @@ class MoviesTvsShowTableViewController: UITableViewController {
      private func validateMovieLocalData(category: Category){
           let data = DataSourceManager.getMoviesByType(category: category)
           if data.count > 0 {
-               //self.performSegue(withIdentifier: "segueListMovies", sender: typeMovie)
+               self.contentData = data
+               DispatchQueue.main.async {
+                    self.tableView.reloadData()
+               }
           }else {
-               //self.showToastMessage(message: Constants.GlobalMessage.Error.errorAvailable, type: .warning, slideFrom: .top)
+               ShowMessage.showToastMessage(message: Constants.GlobalMessage.Error.errorAvailable, type: .warning, slideFrom: .top)
           }
      }
      
@@ -83,7 +84,7 @@ class MoviesTvsShowTableViewController: UITableViewController {
           self.contentData = DataSourceManager.getMoviesByType(category: settingViewModel.selectedCategory)
           DispatchQueue.main.async {
                self.fetchingMore = false
-               self.firtsTime = false
+//               self.firtsTime = false
                self.tableView.reloadData()
           }
      }
@@ -95,9 +96,15 @@ class MoviesTvsShowTableViewController: UITableViewController {
                let model = sender as? ResultMovieModel else {
                     return
                }
-               
                movieDetailVC.movieModel = model
-               
+          } else if segue.identifier == "segueSettings" {
+               guard let nav = segue.destination as? UINavigationController,
+                    let settingsVC = nav.viewControllers.first as?  SettingsViewController else {
+                         return
+               }
+               settingsVC.selectedCategory.subscribe(onNext: { [weak self] category in
+                    self?.getMoviesByType()
+               }).disposed(by: self.disposeBag)
           }
      }
      
@@ -126,7 +133,7 @@ class MoviesTvsShowTableViewController: UITableViewController {
           }
           
           vc.movieModel = contentData[indexPath.row]
-          
+          vc.isModalPresenter = true
           return vc
      }
 }
@@ -161,7 +168,7 @@ extension MoviesTvsShowTableViewController {
      }
      
      override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-          let animation = AnimationFactory.makeSlideIn(duration: 0.3, delayFactor: 0.03)
+          let animation = AnimationFactory.makeSlideIn(duration: 0.2, delayFactor: 0.02)
           let animator = Animator(animation: animation)
           animator.animate(cell: cell, at: indexPath, in: tableView)
      }

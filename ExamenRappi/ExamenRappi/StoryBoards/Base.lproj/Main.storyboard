@@ -88,7 +88,6 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="X99-19-vWD">
-                        <barButtonItem key="leftBarButtonItem" image="tv_icon" id="be6-XK-VRD"/>
                         <barButtonItem key="rightBarButtonItem" image="settings_30x30" id="4j6-BL-4Nh">
                             <connections>
                                 <segue destination="yCO-Cg-vyE" kind="presentation" identifier="segueSettings" id="F6O-4f-2qY"/>
@@ -262,7 +261,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="GTO-FO-qLJ">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="tv_icon" id="zS8-yh-ljw"/>
                         <barButtonItem key="rightBarButtonItem" image="settings_30x30" id="YKa-X1-qpX">
                             <connections>
                                 <segue destination="yCO-Cg-vyE" kind="presentation" identifier="segueSettings" id="XT2-ea-Uyw"/>
@@ -365,14 +363,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back_icon" width="30" height="30"/>
-        <image name="collection_30x30" width="30" height="30"/>
-        <image name="settings_30x30" width="30" height="30"/>
-        <image name="table_30x30" width="30" height="30"/>
-        <image name="tv_icon" width="30" height="30"/>
+        <image name="back_icon" width="14.399999618530273" height="14.399999618530273"/>
+        <image name="collection_30x30" width="60" height="61"/>
+        <image name="settings_30x30" width="60" height="60"/>
+        <image name="table_30x30" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6Ps-eG-UFI"/>
-        <segue reference="F6O-4f-2qY"/>
+        <segue reference="XT2-ea-Uyw"/>
     </inferredMetricsTieBreakers>
 </document>
